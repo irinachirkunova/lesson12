@@ -55,35 +55,18 @@ window.addEventListener('DOMContentLoaded', function() {
 
     //menu
     const toggleMenu = () => {
-        const btnMenu = document.querySelector('.menu'),
-              menu = document.querySelector('menu');
-              //menuItems = menu.querySelectorAll('ul>li');
-
-        const handlerMenu = () => {
-            menu.classList.toggle('active-menu');
-        }
-
-        btnMenu.addEventListener('click', handlerMenu);
-
-        menu.addEventListener('click', (event) => {
-            let target = event.target;
-                
-            if(target.classList.contains('close-btn')) {
-                handlerMenu();
-            }
-            else {
-                target = target.classList.contains('ul');
-                handlerMenu();       
-            }            
-        });
-
+        const menu = document.querySelector('menu');
+            
         document.body.addEventListener('click',()=>{
             let target = event.target;
         
-            target = target.closest('.menu');
-                if(!target){
-                    menu.classList.remove('active-menu');
-                } 
+            if(target && target.closest('.menu')){
+                menu.classList.add('active-menu');
+            } 
+            else if(target && (target.classList.contains('close-btn') || target.tagName === 'A') || !target.classList.contains('active-menu')) {
+                menu.classList.remove('active-menu');
+            }
+            
         });
     };
 
